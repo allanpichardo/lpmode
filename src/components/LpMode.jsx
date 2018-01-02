@@ -65,7 +65,7 @@ export default class LpMode extends Component {
                         <Route exact={true} path="/tag/:tagslug" component={BlogIndex}/>
                         <Route exact={true} path="/tutorials" component={BlogIndex}/>
                         <Route exact={true} path="/tutorials/:slug" component={BlogDetail}/>
-                        <Route path="/about" component={BlogDetail}/>
+                        <Route path="/pages/:pagename" component={BlogDetail}/>
                     </div>
                 </div>
             </Router>
