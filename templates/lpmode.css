@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:900|Raleway');
+
+:root {
+    --lp-highlight: #ff5429;
+    --lp-text: #4a4a4a;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    padding: 0 12px 0 12px;
+    margin: 0;
+}
+
+.main-wrapper {
+    max-width: 100vw;
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas: "head head head"
+    "nav  main cart";
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 64px 100%;
+}
+
+.heading {
+    font-family: 'Playfair Display', serif;
+}
+
+.header {
+    grid-area: head;
+    display: grid;
+    grid-template-areas: "menu title cart";
+    grid-template-columns: 64px 1fr 64px;
+}
+
+.header-menu {
+    grid-area: menu;
+}
+
+.header-cart {
+    grid-area: cart;
+}
+
+.header-title {
+    grid-area: title;
+}
+
+.sidebar-nav {
+    grid-area: nav;
+}
+
+.sidebar-cart {
+    grid-area: cart;
+}
+
+.sidebar-open {
+    width: 300px;
+}
+
+.content {
+    /*min-height: 100%;*/
+    grid-area: main;
+}
