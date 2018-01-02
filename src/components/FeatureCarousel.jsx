@@ -16,45 +16,21 @@ export default class FeatureCarousel extends Component {
         };
 
         this.populateFeaturedPosts = this.populateFeaturedPosts.bind(this);
-        this.fetchFeaturedImage = this.fetchFeaturedImage.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.goToIndex = this.goToIndex.bind(this);
-        this.cancelCarouselInterval = this.cancelCarouselInterval.bind(this);
     }
 
     componentWillMount() {
         this.populateFeaturedPosts();
     }
 
-    componentDidMount() {
-        let intervalRef = setInterval(() => {
-            let newIndex = (this.state.index + 1) % this.state.count;
-            this.goToIndex(newIndex);
-        }, 10000);
-        this.setState({
-            intervalRef: intervalRef,
-        });
-    }
-
-    componentWillUnmount() {
-        this.cancelCarouselInterval();
-    }
-
-    cancelCarouselInterval() {
-        if (this.state.intervalRef) {
-            clearInterval(this.state.intervalRef);
-        }
-    }
-
     handleScroll(event) {
         if(event.deltaY > 100 && !this.state.isInTransition) {
             let newIndex = (this.state.index + 1) % this.state.count;
             this.goToIndex(newIndex);
-            this.cancelCarouselInterval();
         } else if (event.deltaY < -100 && !this.state.isInTransition) {
             let newIndex = this.state.index > 0 ? (this.state.index - 1) % this.state.count : this.state.count - 1;
             this.goToIndex(newIndex);
-            this.cancelCarouselInterval();
         }
     }
 
@@ -68,33 +44,33 @@ export default class FeatureCarousel extends Component {
                 count: posts.length,
                 index: 0,
             });
+
+            let promises = [];
+            posts.forEach((post) => {
+                promises.push(this.wp.media().id(post.featured_media));
+            });
+
+            return Promise.all(promises);
+        }).then((media) => {
+            console.log(media);
+            this.setState({
+                media: media,
+            });
         }).catch((error) => {
             console.log(error);
         });
     }
 
     componentDidUpdate(previousProps, previousState) {
-        if(previousState.index !== this.state.index) {
-            this.fetchFeaturedImage();
-        }
+
     }
 
     toggleFade(isVisible) {
         let feature = document.querySelector('.feature');
-        feature.classList.toggle('fade-out', !isVisible);
-        feature.classList.toggle('fade-in', isVisible);
-    }
-
-    fetchFeaturedImage() {
-        this.wp.media().id(this.state.posts[this.state.index].featured_media).then((img) => {
-            this.setState({
-                image: img,
-                isInTransition: false,
-            });
-            this.toggleFade(true);
-        }).catch((error) => {
-            console.log(error);
-        });
+        if(feature) {
+            feature.classList.toggle('fade-out', !isVisible);
+            feature.classList.toggle('fade-in', isVisible);
+        }
     }
 
     getDots(selectionIndex, count) {
@@ -112,12 +88,11 @@ export default class FeatureCarousel extends Component {
     render() {
         let post = null;
         let imageUrl = '';
-        if(this.state.posts) {
+        if(this.state.posts && this.state.media) {
             post = this.state.posts[this.state.index];
+            imageUrl = this.state.media[this.state.index].media_details.sizes.full.source_url;
         }
-        if(this.state.image) {
-            imageUrl = this.state.image.media_details.sizes.full.source_url;
-        }
+
         return !!post ? (
             <div className="feature" style={{backgroundImage: `url(${imageUrl})`}} onWheel={this.handleScroll}>
                 <div className="feature-heading heading" dangerouslySetInnerHTML={{__html: post.title.rendered}}/>
@@ -137,10 +112,16 @@ export default class FeatureCarousel extends Component {
     }
 
     goToIndex(index) {
-        this.toggleFade(false);
         this.setState({
             index: index,
             isInTransition: true,
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    isInTransition: false,
+                }, () => {
+                });
+            }, 1000);
         });
     }
 }
