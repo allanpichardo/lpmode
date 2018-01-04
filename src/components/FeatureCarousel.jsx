@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import WpApi from 'wpapi';
 import LPButton from "./LPButton";
 import Spinner from "./Spinner";
+import Wordpress from "../lib/Wordpress";
 
 export default class FeatureCarousel extends Component {
 
     constructor(props) {
         super(props);
 
-        this.wp = new WpApi({endpoint: 'https://lp-mode.com/wp-json'});
+        this.wp = Wordpress.getBaseWpInstance();
 
         this.state = {
             index: -1,
@@ -25,20 +26,17 @@ export default class FeatureCarousel extends Component {
     }
 
     handleScroll(event) {
-        if(event.deltaY > 100 && !this.state.isInTransition) {
+        if(event.deltaY > 200 && !this.state.isInTransition) {
             let newIndex = (this.state.index + 1) % this.state.count;
             this.goToIndex(newIndex);
-        } else if (event.deltaY < -100 && !this.state.isInTransition) {
+        } else if (event.deltaY < -200 && !this.state.isInTransition) {
             let newIndex = this.state.index > 0 ? (this.state.index - 1) % this.state.count : this.state.count - 1;
             this.goToIndex(newIndex);
         }
     }
 
     populateFeaturedPosts() {
-        this.wp.tags().slug('featured').then((data) => {
-            let tag = data[0];
-            return this.wp.posts().tags(tag.id);
-        }).then((posts) => {
+        Wordpress.getFeaturedPosts().then((posts) => {
             this.setState({
                 posts: posts,
                 count: posts.length,
@@ -64,15 +62,6 @@ export default class FeatureCarousel extends Component {
     componentDidUpdate(previousProps, previousState) {
 
     }
-
-    toggleFade(isVisible) {
-        let feature = document.querySelector('.feature');
-        if(feature) {
-            feature.classList.toggle('fade-out', !isVisible);
-            feature.classList.toggle('fade-in', isVisible);
-        }
-    }
-
     getDots(selectionIndex, count) {
         let indexes = [];
         for(let i = 0; i < count; ++i) {
@@ -90,7 +79,7 @@ export default class FeatureCarousel extends Component {
         let imageUrl = '';
         if(this.state.posts && this.state.media) {
             post = this.state.posts[this.state.index];
-            imageUrl = this.state.media[this.state.index].media_details.sizes.full.source_url;
+            imageUrl = this.state.media[this.state.index].media_details.sizes.large.source_url;
         }
 
         return !!post ? (
