@@ -82,29 +82,32 @@ export default class BlogDetail extends Component {
     }
 
     renderTags() {
-        if(this.state.tags) {
-            let tagLinks = this.state.tags.map((tag) => {
-                return (
-                    <Link className="blog-detail-tags-link" key={tag.id} to={`/tag/${tag.slug}`} >{tag.name}</Link>
-                )
-            });
-            return (
-                <div className="blog-detail-tags">Tags: {tagLinks}</div>
-            )
-        } else {
-            let tags = [];
-            this.state.post.tags.forEach((id) => {
-                this.wp.tags().id(id).then((data) => {
-                    tags.push(data);
-                    this.setState({
-                        tags: tags,
-                    })
-                }).catch((error) => {
-                    console.log(error);
+        if(!this.isPage()) {
+            if(this.state.tags) {
+                let tagLinks = this.state.tags.map((tag) => {
+                    return (
+                        <Link className="blog-detail-tags-link" key={tag.id} to={`/tag/${tag.slug}`} >{tag.name}</Link>
+                    )
                 });
-            });
+                return (
+                    <div className="blog-detail-tags">Tags: {tagLinks}</div>
+                )
+            } else {
+                let tags = [];
+                this.state.post.tags.forEach((id) => {
+                    this.wp.tags().id(id).then((data) => {
+                        tags.push(data);
+                        this.setState({
+                            tags: tags,
+                        })
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                });
+            }
+        } else {
+            return (<span className="invisible"/>);
         }
-        return (<span className="invisible"/>);
     }
 
     render() {

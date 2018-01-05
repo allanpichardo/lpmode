@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { HashRouter as Router, Link, Route } from 'react-router-dom';
 import Header from "./Header";
 import FeatureCarousel from "./FeatureCarousel";
 import NavPanel from "./NavPanel";
@@ -50,7 +50,6 @@ export default class LpMode extends Component {
                 <div className="main-wrapper">
                     <Helmet>
                         <title>LP Mode</title>
-                        <meta property="fb:app_id" content="140481659949883"/>
                     </Helmet>
                     <Header
                         onNavToggle={(isToggled) => {this.handleNavToggle(isToggled)}}
@@ -61,6 +60,7 @@ export default class LpMode extends Component {
                     </div>
                     <div className="sidebar sidebar-cart"></div>
                     <div className="content">
+                        <Route exact={true} path="/wp-login.php" onEnter={()=>{window.location.reload()}}/>
                         <Route exact={true} path="/" component={FeatureCarousel}/>
                         <Route exact={true} path="/blog" component={BlogIndex}/>
                         <Route exact path="/blog/:slug" component={BlogDetail}/>

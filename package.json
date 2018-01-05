@@ -11,6 +11,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "react-springy-parallax": "^1.2.0",
+    "react-wp-scripts": "^0.1.1",
     "wpapi": "^1.1.2"
   },
   "scripts": {
@@ -18,5 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-snap": "^1.8.0"
   }
 }
