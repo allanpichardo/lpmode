@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import Spinner from "./Spinner";
-import WpApi from 'wpapi';
 import PostCard from "./PostCard";
 import SearchBar from "./SearchBar";
 import {Helmet} from "react-helmet";
+import Wordpress from "../lib/Wordpress";
 
 export default class BlogIndex extends Component {
 
     constructor(props) {
         super(props);
 
-        this.wp = WpApi({endpoint: 'https://lp-mode.com/wp-json'});
+        this.wp = Wordpress.getBaseWpInstance();
 
         this.state = {
             posts: [],
@@ -18,7 +18,8 @@ export default class BlogIndex extends Component {
             isTutorial: !!this.props.location && this.props.location.pathname === '/tutorials',
             perPage: 20,
             isLoading: false,
-            title: "Blog | LP Mode"
+            title: "Blog | LP Mode",
+            tutorialsId: Wordpress.tutorialsId,
         };
 
         this.renderPosts = this.renderPosts.bind(this);

@@ -35,7 +35,7 @@ export default class NavPanel extends Component {
                         <li><NavLink to="/blog" className="navLink" activeClassName="activeNavLink" onClick={this.props.onClickOutside}>Blog</NavLink></li>
                         <li><NavLink to="/tutorials" className="navLink" activeClassName="activeNavLink" onClick={this.props.onClickOutside}>Tutorials</NavLink></li>
                         <li><NavLink to="/pages/about" className="navLink" activeClassName="activeNavLink" onClick={this.props.onClickOutside}>About</NavLink></li>
-                        <li><NavLink to="/pages/contact" className="navLink" activeClassName="activeNavLink" onClick={this.props.onClickOutside}>Contact</NavLink></li>
+                        <li><NavLink to="/contact" className="navLink" activeClassName="activeNavLink" onClick={this.props.onClickOutside}>Contact</NavLink></li>
                     </ul>
                 </div>
                 <div className="navlist-social"></div>

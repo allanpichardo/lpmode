@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import WpApi from 'wpapi';
 import moment from 'moment';
 import Spinner from "./Spinner";
 import FacebookProvider, { Like, Comments } from 'react-facebook';
 import {Link} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import Utils from "../lib/Utils";
+import Wordpress from "../lib/Wordpress";
 
 export default class BlogDetail extends Component {
 
     constructor(props) {
         super(props);
 
-        this.wp = WpApi({endpoint: 'https://lp-mode.com/wp-json'});
+        this.wp = Wordpress.getBaseWpInstance();
 
         this.state = {
             isNotFound: false,
@@ -104,7 +104,7 @@ export default class BlogDetail extends Component {
                 });
             });
         }
-        return (<span/>);
+        return (<span className="invisible"/>);
     }
 
     render() {
@@ -126,8 +126,9 @@ export default class BlogDetail extends Component {
     }
 
     renderPost() {
+        let detailClass = this.isPage() ? "blog-detail-page" : "blog_detail";
         return (
-            <div className="blog-detail">
+            <div className={detailClass}>
                 <Helmet>
                     <title>{this.state.post.title.rendered} | LP Mode</title>
                     <link rel="canonical" href={`https://lp-mode.com/${this.state.post.slug}`}/>
@@ -186,7 +187,7 @@ export default class BlogDetail extends Component {
                 </FacebookProvider>
             );
         } else {
-            return(<div/>);
+            return(<div className="invisible"/>);
         }
     }
 }

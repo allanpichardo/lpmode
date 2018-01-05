@@ -64,6 +64,14 @@ input {
     border-bottom: 1px solid var(--lp-highlight);
 }
 
+textarea {
+    box-sizing: border-box;
+    vertical-align: top;
+    font-family: 'Raleway', sans-serif;
+    border: none;
+    border-bottom: 1px solid var(--lp-highlight);
+}
+
 .main-wrapper {
     left: 0;
     right: 0;
@@ -364,6 +372,18 @@ input {
     grid-gap: 16px;
 }
 
+.blog-detail-page {
+    width: 100%;
+    display: grid;
+    overflow-x:hidden;
+    grid-template-areas: "."
+    "bhead"
+    "bbody";
+    grid-template-rows: 64px auto auto;
+    grid-template-columns: 100%;
+    grid-gap: 16px;
+}
+
 .blog-detail-header {
     grid-area: bhead;
     padding-left: 12px;
@@ -403,6 +423,7 @@ input {
 .blog-detail-body img {
     display: block;
     width: 75%;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     height: auto;
@@ -423,6 +444,10 @@ input {
 }
 
 .spinner-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
     width: 100vw;
     height: 100vh;
     display: grid;
@@ -528,4 +553,74 @@ input {
 
 .searchbox-input-focused {
     width: 250px;
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-areas: "blurb form";
+    grid-template-columns: 39% 1fr;
+}
+
+
+
+.contact-wrapper-blurb {
+    grid-area: blurb;
+}
+
+.contact-wrapper-form {
+    grid-area: form;
+}
+
+.contact-wrapper-form form {
+    width: 75%;
+    max-width: 450px;
+    vertical-align: top;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-wrapper-form input {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.contact-wrapper-form textarea {
+    width: 100%;
+    margin-bottom: 24px;
+    min-height: 5em;
+}
+
+.contact-wrapper-form-button {
+    width: 100px !important;
+    border: 1px solid var(--lp-highlight);
+    color: var(--lp-highlight);
+}
+
+@media screen and (max-width: 824px) {
+    .contact-wrapper {
+        display: grid;
+        grid-template-areas: "blurb"
+        "form";
+        grid-template-rows: 6em 1fr;
+        grid-template-columns: 100%;
+    }
+
+    .contact-wrapper-form form {
+        max-width: 450px;
+        vertical-align: top;
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+
+.wp-caption {
+    font-size: 0.85em;
+    font-weight: bold;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.invisible {
+    height: 0 !important;
 }

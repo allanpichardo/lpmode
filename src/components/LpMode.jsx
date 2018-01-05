@@ -6,6 +6,8 @@ import NavPanel from "./NavPanel";
 import BlogDetail from "./BlogDetail";
 import {Helmet} from "react-helmet";
 import BlogIndex from "./BlogIndex";
+import ContactForm from "./ContactForm";
+import MessageSent from "./MessageSent";
 
 export default class LpMode extends Component {
 
@@ -66,6 +68,8 @@ export default class LpMode extends Component {
                         <Route exact={true} path="/tutorials" component={BlogIndex}/>
                         <Route exact={true} path="/tutorials/:slug" component={BlogDetail}/>
                         <Route path="/pages/:pagename" component={BlogDetail}/>
+                        <Route path="/contact" component={ContactForm}/>
+                        <Route path="/messagesent" component={MessageSent}/>
                     </div>
                 </div>
             </Router>
