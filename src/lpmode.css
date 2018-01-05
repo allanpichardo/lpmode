@@ -139,7 +139,7 @@ textarea {
     position: fixed;
     top: 0;
     height: 64px;
-    width: 100%;
+    width: 100vw;
     z-index: 5;
 }
 
@@ -429,6 +429,16 @@ textarea {
     height: auto;
 }
 
+@media screen and (max-width: 824px) {
+    .blog-detail-body img {
+        width: 100%;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        height: auto;
+    }
+}
+
 .blog-detail-footer {
     grid-area: bfooter;
     padding-left: 12px;
@@ -462,7 +472,7 @@ textarea {
     height: 64px;
     background-color: var(--lp-highlight);
 
-    margin: 100px auto;
+    margin: auto;
     -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
     animation: sk-rotateplane 1.2s infinite ease-in-out;
 }

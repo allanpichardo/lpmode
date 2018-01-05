@@ -126,7 +126,7 @@ export default class BlogDetail extends Component {
     }
 
     renderPost() {
-        let detailClass = this.isPage() ? "blog-detail-page" : "blog_detail";
+        let detailClass = this.isPage() ? "blog-detail-page" : "blog-detail";
         return (
             <div className={detailClass}>
                 <Helmet>
