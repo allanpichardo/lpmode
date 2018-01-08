@@ -38,7 +38,11 @@ export default class NavPanel extends Component {
                         <li><NavLink to="/contact" className="navLink" activeClassName="activeNavLink" onClick={this.props.onClickOutside}>Contact</NavLink></li>
                     </ul>
                 </div>
-                <div className="navlist-social"></div>
+                <div className="navlist-social">
+                    <a href="https://www.facebook.com/lpmodestudio" target="_blank" rel="noopener noreferrer"><i alt="Facebook" className="fa fa-facebook-square"/></a>
+                    <a href="https://www.instagram.com/lpmodestudio" target="_blank" rel="noopener noreferrer"><i alt="Instagram" className="fa fa-instagram"/></a>
+                    <a href="https://www.pinterest.com/lpmodestudio" target="_blank" rel="noopener noreferrer"><i alt="Pinterest" className="fa fa-pinterest"/></a>
+                </div>
             </div>
         );
     }

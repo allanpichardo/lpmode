@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:900|Raleway');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://use.fontawesome.com/e6284eb370.css');
 
 :root {
     --lp-highlight: #ff5429;
@@ -315,7 +316,7 @@ textarea {
     grid-template-areas: "."
                         "links"
                         "social";
-    grid-template-rows: 64px 2fr 1fr;
+    grid-template-rows: 64px 2fr 64px;
 }
 
 .navlist-links {
@@ -324,6 +325,20 @@ textarea {
 
 .navlist-social {
     grid-area: social;
+    align-self: end;
+    justify-self: start;
+    padding-bottom: 32px;
+}
+
+.navlist-social a {
+    color: white;
+    margin: 12px;
+    font-size: 2em;
+    transition: color .3s ease;
+}
+
+.navlist-social a:hover {
+    color: var(--lp-bright);
 }
 
 .navlist ul {

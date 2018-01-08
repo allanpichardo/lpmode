@@ -159,11 +159,14 @@ export default class BlogIndex extends Component {
                 <PostCard key={post.id} post={post}/>
             )
         });
+        let description = this.state.isTutorial ? "Find sewalongs and tutorials from LP Mode" : "The latest news from the LP Mode studio";
+
         return (
             <div className="blog-index">
                 <Helmet>
                     <title>{this.state.title}</title>
                     <link rel="canonical" href={`https://lp-mode.com${this.props.location.pathname}`} />
+                    <meta name="description" content={description}/>
                     <meta property="og:title" content={`${this.state.title}`}/>
                     <meta property="og:site_name" content="LP Mode"/>
                 </Helmet>
